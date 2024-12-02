@@ -1,20 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CrossPlatformProject2.MainPage">
+             x:Class="CrossPlatformProject2.MainPage"
+             Title="Trivia Game">
 
-    <StackLayout Padding="10">
-        <!-- Display the question and the four options , allow submit-->
-        <Label x:Name="QuestionLabel" Text="Question will appear here" FontSize="Large" HorizontalOptions="Center" />
+    <StackLayout Padding="10" Spacing="15">
+        <!-- Display the question -->
+        <Label x:Name="QuestionLabel" 
+               Text="Question will appear here" 
+               FontSize="Large" 
+               HorizontalOptions="Center" 
+               TextColor="Black" />
 
-        <RadioButton GroupName="answers" Content="Answer 1" x:Name="Answer1" />
-        <RadioButton GroupName="answers" Content="Answer 2" x:Name="Answer2" />
-        <RadioButton GroupName="answers" Content="Answer 3" x:Name="Answer3" />
-        <RadioButton GroupName="answers" Content="Answer 4" x:Name="Answer4" />
+        <!-- Display the answer options -->
+        <StackLayout>
+            <RadioButton GroupName="answers" Content="Answer 1" x:Name="Answer1" />
+            <RadioButton GroupName="answers" Content="Answer 2" x:Name="Answer2" />
+            <RadioButton GroupName="answers" Content="Answer 3" x:Name="Answer3" />
+            <RadioButton GroupName="answers" Content="Answer 4" x:Name="Answer4" />
+        </StackLayout>
 
+        <!-- Submit button -->
         <Button Text="Submit Answer" Clicked="OnSubmitAnswerClicked" />
 
-        <Label x:Name="ScoreLabel" Text="Score: 0/0" HorizontalOptions="Center" />
+        <!-- Display the score -->
+        <Label x:Name="ScoreLabel" 
+               Text="Score: 0/0" 
+               FontSize="Medium" 
+               HorizontalOptions="Center" 
+               TextColor="Green" />
     </StackLayout>
-
 </ContentPage>
