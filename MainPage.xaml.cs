@@ -8,7 +8,10 @@
             InitializeComponent();
         }
 
-
+        private void OnSubmitAnswerClicked(object sender, EventArgs e)
+        {
+            // after answer submission
+        }
     }
 
 }

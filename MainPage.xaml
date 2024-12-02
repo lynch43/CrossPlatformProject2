@@ -3,6 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CrossPlatformProject2.MainPage">
 
+    <StackLayout Padding="10">
+        <!-- Display the question and the four options , allow submit-->
+        <Label x:Name="QuestionLabel" Text="Question will appear here" FontSize="Large" HorizontalOptions="Center" />
 
+        <RadioButton GroupName="answers" Content="Answer 1" x:Name="Answer1" />
+        <RadioButton GroupName="answers" Content="Answer 2" x:Name="Answer2" />
+        <RadioButton GroupName="answers" Content="Answer 3" x:Name="Answer3" />
+        <RadioButton GroupName="answers" Content="Answer 4" x:Name="Answer4" />
+
+        <Button Text="Submit Answer" Clicked="OnSubmitAnswerClicked" />
+
+        <Label x:Name="ScoreLabel" Text="Score: 0/0" HorizontalOptions="Center" />
+    </StackLayout>
 
 </ContentPage>
