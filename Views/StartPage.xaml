@@ -8,5 +8,8 @@
             Text="Welcome to .NET MAUI!"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+        <Button x:Name="btnSettings" Clicked="btnSettings_Clicked" Text="Settings"></Button>
+        <Button x:Name="btnStartTrivia" Clicked="btnStartTrivia_Clicked" Text="Start Trivia"></Button>
+        
     </VerticalStackLayout>
 </ContentPage>
