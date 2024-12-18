@@ -3,13 +3,26 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CrossPlatformProject2.Views.StartPage"
              Title="Start">
-    <VerticalStackLayout>
+    <VerticalStackLayout Padding="20" Spacing="20">
+        <Button x:Name="btnSettings" 
+                Clicked="btnSettings_Clicked" 
+                Text="Start Trivia" 
+                HorizontalOptions="Center" />
         <Label 
-            Text="Welcome to .NET MAUI!"
+            Text="Welcome to Trivia Game"
             VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Button x:Name="btnSettings" Clicked="btnSettings_Clicked" Text="Settings"></Button>
-        <Button x:Name="btnStartTrivia" Clicked="btnStartTrivia_Clicked" Text="Start Trivia"></Button>
+            HorizontalOptions="Center"
+            FontSize="24"
+            FontAttributes="Bold"/>
         
+        <Entry x:Name="playersEntry" 
+               Placeholder="Enter number of players"
+               Keyboard="Numeric" 
+               HorizontalOptions="Center" />
+        
+        <Button x:Name="btnStartTrivia" 
+                Clicked="btnStartTrivia_Clicked" 
+                Text="Start Trivia" 
+                HorizontalOptions="Center" />
     </VerticalStackLayout>
 </ContentPage>
