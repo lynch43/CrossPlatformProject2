@@ -9,11 +9,27 @@ public partial class GamePage : ContentPage
     private List<TriviaQuestion> triviaQuestions = new();
     private int currentQuestionIndex = 0;
     private int score = 0;
+    private List<string> playerNames = new();
+    private int currentPlayerIndex = 0;
+
 
     public GamePage()
     {
         InitializeComponent();
+    }
+
+    public GamePage(List<string> playerNames) : this()
+    {
+        this.playerNames = playerNames;
+        UpdateScoreLabel();
         FetchTriviaQuestions();
+    }
+
+
+    public void SetPlayerNames(List<string> playerNames)
+    {
+        this.playerNames = playerNames;
+        UpdateScoreLabel();
     }
 
     private async void FetchTriviaQuestions()
@@ -51,7 +67,6 @@ public partial class GamePage : ContentPage
             var currentQuestion = triviaQuestions[currentQuestionIndex];
             QuestionLabel.Text = currentQuestion.Question;
 
-            // Shuffle answers
             var answers = new List<string>(currentQuestion.IncorrectAnswers) { currentQuestion.CorrectAnswer };
             answers = answers.OrderBy(_ => Guid.NewGuid()).ToList();
 
@@ -59,6 +74,8 @@ public partial class GamePage : ContentPage
             Answer2.Content = answers[1];
             Answer3.Content = answers[2];
             Answer4.Content = answers[3];
+
+            UpdateScoreLabel();
         }
         else
         {
@@ -69,7 +86,14 @@ public partial class GamePage : ContentPage
 
     private async void OnSubmitAnswerClicked(object sender, EventArgs e)
     {
-        // Get the selected answer
+        
+        if (playerNames.Count == 0)
+        {
+            await DisplayAlert("Error", "No players available.", "OK");
+            return;
+        }
+
+        
         var selectedAnswer = new[] { Answer1, Answer2, Answer3, Answer4 }
             .FirstOrDefault(r => r.IsChecked)?.Content?.ToString();
 
@@ -93,10 +117,28 @@ public partial class GamePage : ContentPage
         }
 
         currentQuestionIndex++;
-        DisplayQuestion();
 
-        // Update the score label
-        ScoreLabel.Text = $"Score: {score}/{triviaQuestions.Count}";
+        
+        currentPlayerIndex = (currentPlayerIndex + 1) % playerNames.Count;
+
+       
+        if (currentQuestionIndex < triviaQuestions.Count)
+        {
+            DisplayQuestion();
+        }
+        else
+        {
+            QuestionLabel.Text = "Quiz Complete!";
+            await DisplayAlert("Quiz Finished", $"Your score: {score}/{triviaQuestions.Count}", "OK");
+        }
+
+        
+        UpdateScoreLabel();
+    }
+
+    private void UpdateScoreLabel()
+    {
+        ScoreLabel.Text = $"Score: {score}/{triviaQuestions.Count} - {playerNames[currentPlayerIndex]}'s turn";
     }
 }
 

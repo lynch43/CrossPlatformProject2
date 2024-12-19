@@ -14,7 +14,22 @@
             HorizontalOptions="Center"
             FontSize="24"
             FontAttributes="Bold"/>
-        
+        <Label Text="Contestants (1-4):"
+               HorizontalOptions="Center"
+               FontSize="18"/>
+        <Entry x:Name="player1Entry"
+               Placeholder="Contestant 1:"
+               HorizontalOptions="Center" />
+        <Entry x:Name="player2Entry"
+               Placeholder="Contestant 2:"
+               HorizontalOptions="Center" />
+        <Entry x:Name="player3Entry"
+               Placeholder="Contestant 3:"
+               HorizontalOptions="Center" />
+        <Entry x:Name="player4Entry"
+               Placeholder="Contestant 4:"
+               HorizontalOptions="Center" />
+
         <Entry x:Name="playersEntry" 
                Placeholder="Enter number of players"
                Keyboard="Numeric" 

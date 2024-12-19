@@ -14,7 +14,23 @@ public partial class StartPage : ContentPage
 
     private async void btnStartTrivia_Clicked(object sender, EventArgs e)
     {
+        var playerNames = new List<string>
+        {
+            player1Entry.Text,
+            player2Entry.Text,
+            player3Entry.Text,
+            player4Entry.Text
+        }.Where(name => !string.IsNullOrEmpty(name)).ToList();
 
-        Shell.Current.GoToAsync(nameof(GamePage));
+        if (playerNames.Count > 0 && playerNames.Count <= 4)
+        {
+           
+            var gamePage = new GamePage(playerNames);
+            await Navigation.PushAsync(gamePage);
+        }
+        else
+        {
+            await DisplayAlert("Invalid Input", "Please enter valid player names (1-4).", "OK");
+        }
     }
 }
