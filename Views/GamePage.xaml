@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CrossPlatformProject2.Views.GamePage"
@@ -8,38 +8,64 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-
         <Label x:Name="QuestionLabel"
-           Text="Question will appear here"
-           FontSize="24"
-           TextColor="White"
-           HorizontalOptions="Center"
-           VerticalOptions="Center"
-           Grid.Row="0"/>
-
-        <StackLayout Padding="10" Spacing="20" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center">
-            <RadioButton GroupName="answers" Content="Answer 1" x:Name="Answer1" BackgroundColor="White" TextColor="Black"/>
-            <RadioButton GroupName="answers" Content="Answer 2" x:Name="Answer2" BackgroundColor="White" TextColor="Black"/>
-            <RadioButton GroupName="answers" Content="Answer 3" x:Name="Answer3" BackgroundColor="White" TextColor="Black"/>
-            <RadioButton GroupName="answers" Content="Answer 4" x:Name="Answer4" BackgroundColor="White" TextColor="Black"/>
+               Text="Question will appear here"
+               FontSize="24"
+               TextColor="Black"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               Grid.Row="0"/>
+        <StackLayout Padding="10"
+                     Spacing="20"
+                     Grid.Row="1"
+                     HorizontalOptions="Center"
+                     VerticalOptions="Center">
+            <RadioButton GroupName="answers"
+                         Content="Answer 1"
+                         x:Name="Answer1"
+                         BackgroundColor="White"
+                         TextColor="Black"/>
+            <RadioButton GroupName="answers"
+                         Content="Answer 2"
+                         x:Name="Answer2"
+                         BackgroundColor="White"
+                         TextColor="Black"/>
+            <RadioButton GroupName="answers"
+                         Content="Answer 3"
+                         x:Name="Answer3"
+                         BackgroundColor="White"
+                         TextColor="Black"/>
+            <RadioButton GroupName="answers"
+                         Content="Answer 4"
+                         x:Name="Answer4"
+                         BackgroundColor="White"
+                         TextColor="Black"/>
         </StackLayout>
-
         <Button Text="Submit Answer"
-            Clicked="OnSubmitAnswerClicked"
-            BackgroundColor="DarkBlue"
-            TextColor="White"
-            FontSize="18"
-            CornerRadius="10"
-            Padding="10"
-            HorizontalOptions="Center"
-            Grid.Row="2"/>
-        <Label x:Name="ScoreLabel"
-           Text="Score: 0/0"
-           FontSize="18"
-           HorizontalOptions="Center"
-           TextColor="White"
-           Grid.Row="2"
-           Margin="0,20,0,0"/>
+                Clicked="OnSubmitAnswerClicked"
+                BackgroundColor="DarkBlue"
+                TextColor="White"
+                FontSize="18"
+                CornerRadius="10"
+                Padding="10"
+                HorizontalOptions="Center"
+                Grid.Row="2" />
+        <StackLayout Grid.Row="3"
+                     Orientation="Vertical"
+                     HorizontalOptions="Center">
+            <Label x:Name="ScoreLabel"
+                   Text="Scores will appear here"
+                   FontSize="18"
+                   TextColor="White"
+                   HorizontalOptions="Center"
+                   Margin="0,0,0,10"/>
+            <Label x:Name="TurnLabel"
+                   Text="Current player's turn"
+                   FontSize="18"
+                   TextColor="White"
+                   HorizontalOptions="Center"/>
+        </StackLayout>
     </Grid>
 </ContentPage>
