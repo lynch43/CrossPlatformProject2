@@ -1,4 +1,6 @@
-﻿namespace CrossPlatformProject2
+﻿using CrossPlatformProject2.Views;
+
+namespace CrossPlatformProject2
 {
     public partial class App : Application
     {
@@ -6,7 +8,7 @@
         {
             InitializeComponent();
 
-            MainPage = new AppShell();
+            MainPage = new NavigationPage(new StartPage());
         }
     }
 }

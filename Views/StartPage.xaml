@@ -1,43 +1,43 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:CrossPlatformProject2.ViewModels"
              x:Class="CrossPlatformProject2.Views.StartPage"
              Title="Start">
+    <ContentPage.BindingContext>
+        <vm:StartPageViewModel />
+    </ContentPage.BindingContext>
+
     <VerticalStackLayout Padding="20" Spacing="20">
-        <Button x:Name="btnSettings" 
-                Clicked="btnSettings_Clicked" 
-                Text="Start Trivia" 
+        <Button Text="Settings"
+                Command="{Binding NavigateToSettingsCommand}"
                 HorizontalOptions="Center" />
-        <Label 
-            Text="Welcome to Trivia Game"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center"
-            FontSize="24"
-            FontAttributes="Bold"/>
+
+        <Label Text="Welcome to Trivia Game"
+               VerticalOptions="Center" 
+               HorizontalOptions="Center"
+               FontSize="24"
+               FontAttributes="Bold"/>
+
         <Label Text="Contestants (1-4):"
                HorizontalOptions="Center"
                FontSize="18"/>
-        <Entry x:Name="player1Entry"
-               Placeholder="Contestant 1:"
+
+        <Entry Placeholder="Contestant 1"
+               Text="{Binding Player1}"
                HorizontalOptions="Center" />
-        <Entry x:Name="player2Entry"
-               Placeholder="Contestant 2:"
+        <Entry Placeholder="Contestant 2"
+               Text="{Binding Player2}"
                HorizontalOptions="Center" />
-        <Entry x:Name="player3Entry"
-               Placeholder="Contestant 3:"
+        <Entry Placeholder="Contestant 3"
+               Text="{Binding Player3}"
                HorizontalOptions="Center" />
-        <Entry x:Name="player4Entry"
-               Placeholder="Contestant 4:"
+        <Entry Placeholder="Contestant 4"
+               Text="{Binding Player4}"
                HorizontalOptions="Center" />
 
-        <Entry x:Name="playersEntry" 
-               Placeholder="Enter number of players"
-               Keyboard="Numeric" 
-               HorizontalOptions="Center" />
-        
-        <Button x:Name="btnStartTrivia" 
-                Clicked="btnStartTrivia_Clicked" 
-                Text="Start Trivia" 
+        <Button Text="Start Trivia"
+                Command="{Binding StartTriviaCommand}"
                 HorizontalOptions="Center" />
     </VerticalStackLayout>
 </ContentPage>

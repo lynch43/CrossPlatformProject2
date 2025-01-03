@@ -8,9 +8,7 @@
     Shell.FlyoutBehavior="Disabled"
     Title="CrossPlatformProject2">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate views:StartPage}"
-        Route="StartPage" />
+    <ShellContent Title="Settings" ContentTemplate="{DataTemplate views:SettingsPage}" />
+    <ShellContent Title="Game" ContentTemplate="{DataTemplate views:GamePage}" />
 
 </Shell>
