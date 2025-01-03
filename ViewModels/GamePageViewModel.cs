@@ -9,7 +9,7 @@ namespace CrossPlatformProject2.ViewModels
     public class GamePageViewModel : BaseViewModel
     {
         private static readonly string[] Indicators = { "A", "B", "C", "D" };
-        private const string ApiUrl = "https://opentdb.com/api.php?amount=10&category=22&difficulty=medium&type=multiple";
+        private const string ApiUrl = "https://opentdb.com/api.php?amount=20&category=15&difficulty=easy&type=multiple";
 
         private ObservableCollection<AnswerOption> _answers = new();
         private string _currentQuestion;
@@ -98,20 +98,29 @@ namespace CrossPlatformProject2.ViewModels
             {
                 using var client = new HttpClient();
                 var response = await client.GetStringAsync(ApiUrl);
+                Console.WriteLine("API Response: " + response);
+
                 var triviaData = JsonSerializer.Deserialize<TriviaResponse>(response, new JsonSerializerOptions
                 {
                     PropertyNameCaseInsensitive = true
                 });
 
-                if (triviaData?.Results != null)
+                if (triviaData?.Results != null && triviaData.Results.Count > 0)
                 {
                     _triviaQuestions = triviaData.Results;
+                    Console.WriteLine($"Loaded {_triviaQuestions.Count} questions.");
                     DisplayQuestion();
+                }
+                else
+                {
+                    CurrentQuestion = "No questions available.";
+                    Console.WriteLine("Trivia data was null or empty.");
                 }
             }
             catch (Exception ex)
             {
-                // Handle error
+                CurrentQuestion = "Error loading questions.";
+                Console.WriteLine("Error in FetchTriviaQuestions: " + ex.Message);
             }
         }
 
@@ -120,12 +129,14 @@ namespace CrossPlatformProject2.ViewModels
             if (_currentQuestionIndex < _triviaQuestions.Count)
             {
                 var currentQuestion = _triviaQuestions[_currentQuestionIndex];
+                Console.WriteLine($"Displaying Question: {currentQuestion.Question}");
+
                 CurrentQuestion = WebUtility.HtmlDecode(currentQuestion.Question);
 
                 var allAnswers = new List<string>(currentQuestion.IncorrectAnswers)
-                {
-                    currentQuestion.CorrectAnswer
-                };
+        {
+            currentQuestion.CorrectAnswer
+        };
                 allAnswers = allAnswers.OrderBy(_ => Guid.NewGuid()).ToList();
 
                 Answers.Clear();
@@ -139,6 +150,7 @@ namespace CrossPlatformProject2.ViewModels
                     });
                 }
 
+                Console.WriteLine($"Loaded {Answers.Count} answers.");
                 SelectedAnswer = null;
                 UpdateScoreDisplay();
             }
