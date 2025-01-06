@@ -132,6 +132,9 @@
 	  <MauiXaml Update="GameSetup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Leaderboard.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\GamePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -145,6 +148,7 @@
 
 	<ItemGroup>
 	  <Folder Include="Models\" />
+	  <Folder Include="ViewModels\" />
 	</ItemGroup>
 
 </Project>

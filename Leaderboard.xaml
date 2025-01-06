@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CrossPlatformProject2.Leaderboard"
+             NavigationPage.HasBackButton="False"
+             NavigationPage.HasNavigationBar="False"
+             Title="Leaderboard"
+             BackgroundColor="{StaticResource White}">
+    <Grid HorizontalOptions="Center" VerticalOptions="Center">
+
+
+        <VerticalStackLayout Spacing="20" >
+            <!--title of page-->
+            <Label Text="Leaderboard" FontSize="30" FontAttributes="Bold" TextColor="{StaticResource coloryellow}" HorizontalOptions="CenterAndExpand"   FontFamily="RockBoulder"></Label>
+
+            <Frame BackgroundColor="White" BorderColor="{StaticResource Black}" CornerRadius="15" WidthRequest="400">
+
+                <!--adding grid for score table, to improve design-->
+                <Grid ColumnSpacing="10" RowSpacing="5" Padding="20" BackgroundColor="Transparent"   >
+                    <!--row definition-->
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+
+                    </Grid.RowDefinitions>
+
+                    <!--defining the colums-->
+                    <Grid Grid.Row="0" ColumnSpacing="10" RowSpacing="5" >
+                        <Grid.ColumnDefinitions>
+                            <!--username-->
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <!--score-->
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <!--labels for the table-->
+                        <Label Text="Player Name" Grid.Column="0" Grid.Row="0" FontSize="16" TextColor="{StaticResource colorred1}" FontAttributes="Bold" HorizontalOptions="Start" FontFamily="RockBoulder"></Label>
+                        <Label Text="Score" Grid.Column="1" Grid.Row="0" FontSize="16" TextColor="{StaticResource colorred1}" FontAttributes="Bold" HorizontalOptions="End" FontFamily="RockBoulder"></Label>
+                    </Grid>
+                    <!--display leader boards-->
+                    <CollectionView ItemsSource="{Binding Scores}" HeightRequest="300" Grid.Row="1">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Spacing="0">
+                                    <Grid ColumnSpacing="10" RowSpacing="10" Padding="5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Text="{Binding playerName}" FontSize="16" TextColor="Black" WidthRequest="150" Grid.Column="0" HorizontalTextAlignment="Start" FontFamily="RockBoulder" />
+                                        <Label Text="{Binding score}" FontSize="16" TextColor="Black"  Grid.Column="1" HorizontalTextAlignment="End" FontFamily="RockBoulder" />
+                                    </Grid>
+                                    <BoxView HeightRequest="1" BackgroundColor="LightGray" Margin="0,5,0,0" />
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                </Grid>
+            </Frame>
+            <HorizontalStackLayout Spacing="20" HorizontalOptions="Center">
+                <!--return to home page button -->
+                <Button x:Name="homeButton" Text="Return Home" HorizontalOptions="Start" BackgroundColor="{StaticResource colorblue}" TextColor="White" FontSize="16" Clicked="homeButton_Clicked" FontFamily="RockBoulder"></Button>
+                <Button x:Name="resetButton" HorizontalOptions="End" Text="Reset Leaderboard" BackgroundColor="{StaticResource colorred1}" 
+         TextColor="White" FontSize="16" Clicked="resetButton_Clicked" 
+         FontFamily="RockBoulder"></Button>
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>
