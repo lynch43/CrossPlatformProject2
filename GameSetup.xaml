@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             NavigationPage.HasBackButton="False" 
+             x:Class="CrossPlatformProject2.GameSetup"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="{StaticResource colorwhite}">
+    <ScrollView>
+        <Grid RowSpacing="10" HorizontalOptions="Center" VerticalOptions="Center" ColumnSpacing="20" >
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+
+            </Grid.ColumnDefinitions>
+
+
+
+
+
+            <!-- Title -->
+            <Label Text="GAME SETUP"  Grid.Row="0" Grid.ColumnSpan="3" Margin="0,0,0,40"
+                   FontSize="55" 
+                   FontFamily="RockBoulder" 
+                   TextColor="{StaticResource colorred1}" 
+                   HorizontalOptions="Center"/>
+
+            <!-- Player Picker -->
+            <Frame Grid.Row="1" Grid.RowSpan="3" Grid.Column="1" Padding="0" BorderColor="Transparent"   BackgroundColor="{StaticResource White}" CornerRadius="10" HasShadow="True">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Choose Players" 
+                           FontSize="16" 
+                           FontFamily="RockBoulder" 
+                           TextColor="{StaticResource Black}" />
+                    <Picker x:Name="playerPicker" 
+                           
+                            TitleColor="{StaticResource Black}" 
+                            BackgroundColor="White" 
+                            FontSize="16" 
+                            SelectedIndexChanged="OnPlayerCountChanged"/>
+                    <StackLayout x:Name="playerNameEntries" Spacing="10" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Difficulty Picker -->
+            <Frame Grid.Row="1" Grid.Column="0" Padding="0" BorderColor="Transparent"  BackgroundColor="{StaticResource White}" CornerRadius="10" HasShadow="True">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Choose Difficulty" 
+                           FontSize="16" 
+                           FontFamily="RockBoulder" 
+                           TextColor="{StaticResource Black}" />
+                    <Picker x:Name="difficultyPicker" 
+                            
+                            TitleColor="{StaticResource Black}" 
+                            BackgroundColor="White" 
+                            FontSize="16" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Category Picker -->
+            <Frame Grid.Row="2" Grid.Column="0" Padding="0" BorderColor="Transparent"  BackgroundColor="{StaticResource White}" CornerRadius="10" HasShadow="True">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Choose Category" 
+                           FontSize="16" 
+                           FontFamily="RockBoulder" 
+                           TextColor="{StaticResource Black}" />
+                    <Picker x:Name="categoryPicker" 
+                           
+                            TitleColor="{StaticResource Black}" 
+                            BackgroundColor="White" 
+                            FontSize="16" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Total Questions Picker -->
+            <Frame Grid.Row="3"  BorderColor="Transparent" Grid.Column="0"  Padding="0" BackgroundColor="{StaticResource White}" CornerRadius="10" HasShadow="True">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Choose Total Questions" 
+                           FontSize="16" 
+                           FontFamily="RockBoulder" 
+                           TextColor="{StaticResource Black}" />
+                    <Picker x:Name="totalQuestionsPicker" 
+                           
+                            TitleColor="{StaticResource Black}" 
+                            BackgroundColor="White" 
+                            FontSize="16" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Buttons -->
+            <HorizontalStackLayout Grid.Row="4"  Margin="0,20,0,0" Grid.ColumnSpan="2" Grid.Column="0"  Spacing="10" HorizontalOptions="Center">
+                <Button Text="Start Game" 
+                        TextColor="White" 
+                        BackgroundColor="{StaticResource colorred1}" 
+                        FontSize="16" 
+                        FontFamily="RockBoulder" 
+                        WidthRequest="200" 
+                        Clicked="OnStartButtonClicked_Clicked"/>
+
+                <Button x:Name="homeButton" 
+                        Text="Return Home" 
+                        BackgroundColor="{StaticResource colorblue}" 
+                        TextColor="White" 
+                        FontSize="16" 
+                        FontFamily="RockBoulder" 
+                        WidthRequest="200" 
+                        Clicked="homeButton_Clicked"/>
+
+                <Button x:Name="loadGame" 
+                        Text="Load Game" 
+                        BackgroundColor="{StaticResource coloryellow}" 
+                        TextColor="White" 
+                        FontSize="16" 
+                        FontFamily="RockBoulder" 
+                        WidthRequest="200" 
+                        Clicked="OnLoadGameClicked"/>
+            </HorizontalStackLayout>
+
+
+
+        </Grid>
+    </ScrollView>
+</ContentPage>

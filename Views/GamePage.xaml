@@ -1,31 +1,23 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:CrossPlatformProject2.ViewModels"
              x:Class="CrossPlatformProject2.Views.GamePage"
+             BackgroundColor="Black"
              Title="Game">
-    <ContentPage.BindingContext>
-        <vm:GamePageViewModel />
-    </ContentPage.BindingContext>
 
-    <Grid Padding="20" RowSpacing="10">
+    <Grid Padding="20" RowSpacing="15">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <!-- Question -->
             <RowDefinition Height="*" />
-            <!-- Answers -->
             <RowDefinition Height="Auto" />
-            <!-- Turn and Score -->
             <RowDefinition Height="Auto" />
-            <!-- Answer Selection Buttons -->
             <RowDefinition Height="Auto" />
-            <!-- Submit Button -->
         </Grid.RowDefinitions>
 
         <!-- Question -->
         <Label Text="{Binding CurrentQuestion}"
                FontSize="24"
-               TextColor="Black"
+               TextColor="White"
                HorizontalOptions="Center"
                VerticalOptions="Center"
                Grid.Row="0"
@@ -58,37 +50,47 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <!-- Player's Turn and Score -->
+        <!-- Player Names Input -->
         <StackLayout Grid.Row="2" Orientation="Vertical" HorizontalOptions="Center" Margin="0,10">
+            <Label Text="Enter Player Names" FontSize="20" TextColor="White" HorizontalOptions="Center" />
+
+            <!-- Dynamic Entries for Player Names -->
+            <StackLayout x:Name="PlayerNamesLayout" Orientation="Vertical" Margin="0,10">
+                <!-- This will be populated dynamically -->
+            </StackLayout>
+        </StackLayout>
+
+        <!-- Player's Turn and Score -->
+        <StackLayout Grid.Row="3" Orientation="Vertical" HorizontalOptions="Center" Margin="0,10">
             <Label Text="{Binding TurnDisplay}" 
                    FontSize="18" 
-                   TextColor="Black" 
+                   TextColor="White" 
                    HorizontalOptions="Center" 
                    Margin="0,5"/>
             <Label Text="{Binding ScoreDisplay}" 
                    FontSize="18" 
-                   TextColor="Black" 
+                   TextColor="White" 
                    HorizontalOptions="Center"/>
         </StackLayout>
 
         <!-- Answer Selection Buttons -->
-        <StackLayout Grid.Row="3" Orientation="Horizontal" HorizontalOptions="Center" Spacing="20" Margin="20,10">
-            <Button Text="A" Command="{Binding SelectAnswerCommand}" CommandParameter="A" BackgroundColor="DarkBlue" TextColor="White" WidthRequest="50" />
-            <Button Text="B" Command="{Binding SelectAnswerCommand}" CommandParameter="B" BackgroundColor="DarkBlue" TextColor="White" WidthRequest="50" />
-            <Button Text="C" Command="{Binding SelectAnswerCommand}" CommandParameter="C" BackgroundColor="DarkBlue" TextColor="White" WidthRequest="50" />
-            <Button Text="D" Command="{Binding SelectAnswerCommand}" CommandParameter="D" BackgroundColor="DarkBlue" TextColor="White" WidthRequest="50" />
+        <StackLayout Grid.Row="4" Orientation="Horizontal" HorizontalOptions="Center" Spacing="20" Margin="20,10">
+            <Button Text="A" Command="{Binding SelectAnswerCommand}" CommandParameter="A" BackgroundColor="Gray" TextColor="White" WidthRequest="50" />
+            <Button Text="B" Command="{Binding SelectAnswerCommand}" CommandParameter="B" BackgroundColor="Gray" TextColor="White" WidthRequest="50" />
+            <Button Text="C" Command="{Binding SelectAnswerCommand}" CommandParameter="C" BackgroundColor="Gray" TextColor="White" WidthRequest="50" />
+            <Button Text="D" Command="{Binding SelectAnswerCommand}" CommandParameter="D" BackgroundColor="Gray" TextColor="White" WidthRequest="50" />
         </StackLayout>
 
         <!-- Submit Button -->
         <Button Text="Submit Answer" 
                 Command="{Binding SubmitAnswerCommand}" 
-                BackgroundColor="DarkBlue" 
+                BackgroundColor="Gray" 
                 TextColor="White" 
                 FontSize="18" 
                 CornerRadius="10" 
                 Padding="10" 
                 HorizontalOptions="Center" 
-                Grid.Row="4"
+                Grid.Row="5"
                 Margin="0,20" />
     </Grid>
 </ContentPage>

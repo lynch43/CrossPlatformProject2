@@ -3,41 +3,62 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:CrossPlatformProject2.ViewModels"
              x:Class="CrossPlatformProject2.Views.StartPage"
-             Title="Start">
+             Title="Start"
+             BackgroundColor="Black">
     <ContentPage.BindingContext>
         <vm:StartPageViewModel />
     </ContentPage.BindingContext>
 
     <VerticalStackLayout Padding="20" Spacing="20">
+
+        <!-- Settings Button -->
         <Button Text="Settings"
                 Command="{Binding NavigateToSettingsCommand}"
-                HorizontalOptions="Center" />
+                BackgroundColor="DarkBlue"
+                TextColor="White"
+                FontSize="16"
+                HorizontalOptions="Center"
+                CornerRadius="10" />
 
+        <!-- Welcome Label -->
         <Label Text="Welcome to Trivia Game"
-               VerticalOptions="Center" 
+               TextColor="White"
+               VerticalOptions="Center"
                HorizontalOptions="Center"
                FontSize="24"
-               FontAttributes="Bold"/>
+               FontAttributes="Bold"
+               Margin="0,10" />
 
-        <Label Text="Contestants (1-4):"
+        <!-- Contestants Label -->
+        <Label Text="Contestants:"
+               TextColor="White"
                HorizontalOptions="Center"
-               FontSize="18"/>
+               FontSize="18"
+               Margin="0,10" />
 
-        <Entry Placeholder="Contestant 1"
-               Text="{Binding Player1}"
-               HorizontalOptions="Center" />
-        <Entry Placeholder="Contestant 2"
-               Text="{Binding Player2}"
-               HorizontalOptions="Center" />
-        <Entry Placeholder="Contestant 3"
-               Text="{Binding Player3}"
-               HorizontalOptions="Center" />
-        <Entry Placeholder="Contestant 4"
-               Text="{Binding Player4}"
-               HorizontalOptions="Center" />
+        <!-- Dynamic Player Input Fields -->
+        <CollectionView ItemsSource="{Binding PlayerNames}" SelectionMode="None" HorizontalOptions="FillAndExpand" Margin="0,10">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Entry Placeholder="Enter Name"
+                           Text="{Binding .}"
+                           BackgroundColor="White"
+                           TextColor="Black"
+                           HorizontalOptions="FillAndExpand"
+                           FontSize="16"
+                           Margin="10,5" />
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
 
+        <!-- Start Trivia Button -->
         <Button Text="Start Trivia"
                 Command="{Binding StartTriviaCommand}"
-                HorizontalOptions="Center" />
+                BackgroundColor="DarkBlue"
+                TextColor="White"
+                FontSize="16"
+                HorizontalOptions="Center"
+                CornerRadius="10"
+                Padding="10" />
     </VerticalStackLayout>
 </ContentPage>

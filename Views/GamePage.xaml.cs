@@ -4,11 +4,10 @@ namespace CrossPlatformProject2.Views;
 
 public partial class GamePage : ContentPage
 {
-    public GamePage(List<string> playerNames)
+    public GamePage(List<string> playerNames, string difficulty, int numberOfRounds)
     {
         InitializeComponent();
-
-        // Set the BindingContext to a new instance of GamePageViewModel with player names
-        BindingContext = new GamePageViewModel(playerNames);
+        BindingContext = new GamePageViewModel(playerNames, difficulty, numberOfRounds);
     }
 }
+

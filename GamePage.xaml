@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CrossPlatformProject2.GamePage"
+             Title="GamePage"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="{StaticResource White}">
+    <Grid>
+        <!--background image-->
+
+        <!--main content of game page-->
+        <VerticalStackLayout Spacing="20" Padding="20" HorizontalOptions="Center" VerticalOptions="Center">
+            <!--label for question-->
+            <Label x:Name="questionLabel" Text="Question Will Appear Here" FontSize="24" TextColor="{ StaticResource Black}" FontFamily="RockBoulder" HorizontalOptions="Center"></Label>
+
+            <!--timer label-->
+            <Label x:Name="timerLabel" 
+                   Text="Time Remaining: --" 
+                   FontSize="20" 
+                   TextColor="{StaticResource coloryellow}" 
+                   FontFamily="RockBoulder" 
+                   HorizontalOptions="Center"
+                   IsVisible="false"/>
+
+            <!--answer buttons-->
+            <Grid ColumnSpacing="10" RowSpacing="10" Padding="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <!--buttons-->
+                <Button x:Name="answerButton1" Text="Answer 1" BackgroundColor="{StaticResource colorblue}" TextColor="White" Grid.Row="0" Grid.Column="0" Clicked="OnAnswerClicked" LineBreakMode="WordWrap"></Button>
+                <Button x:Name="answerButton2" Text="Answer 2" BackgroundColor="{StaticResource colorblue}" TextColor="White" Grid.Row="0" Grid.Column="1" Clicked="OnAnswerClicked" LineBreakMode="WordWrap"></Button>
+                <Button x:Name="answerButton3" Text="Answer 3" BackgroundColor="{StaticResource colorblue}" TextColor="White" Grid.Row="1" Grid.Column="0" Clicked="OnAnswerClicked" LineBreakMode="WordWrap"></Button>
+                <Button x:Name="answerButton4" Text="Answer 4" BackgroundColor="{StaticResource colorblue}" TextColor="White" Grid.Row="1" Grid.Column="1" Clicked="OnAnswerClicked" LineBreakMode="WordWrap"></Button>
+            </Grid>
+
+            <!--display the scores-->
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Score label on the left -->
+                <Label 
+                    Grid.Row="0" 
+                    Grid.Column="0" 
+                    HorizontalOptions="Start" 
+                    VerticalOptions="Center" 
+                    x:Name="scoreLabel" 
+                    Text="Score: 0" 
+                    FontSize="18" 
+                    TextColor="{StaticResource Black}" 
+                    FontFamily="RockBoulder" />
+
+                <!-- Player's Turn label in the center -->
+                <Label 
+                    Grid.Row="0" 
+                    Grid.Column="1" 
+                    x:Name="currentPlayerLabel" 
+                    Text="Player 1's Turn" 
+                    FontSize="22" 
+                    HorizontalOptions="End"
+                    TextColor="{StaticResource coloryellow}" 
+                    FontFamily="RockBoulder" 
+                    
+                    VerticalOptions="Center" />
+            </Grid>
+
+            <!--save game button-->
+            <Button Text="Save Game" BackgroundColor="{StaticResource coloryellow}" FontSize="16" FontFamily="RockBoulder" Clicked="OnSaveGameClicked"></Button>
+        </VerticalStackLayout>
+        <!-- Final Results Overlay -->
+        <!-- Final Results Overlay -->
+        <Grid x:Name="FinalResultsOverlay"
+      BackgroundColor="#80000000" 
+            IsVisible="False"
+      Opacity="0"
+      HorizontalOptions="FillAndExpand"
+      VerticalOptions="FillAndExpand">
+            <Frame
+        BackgroundColor="White"
+        CornerRadius="20"
+        Padding="20"
+        HorizontalOptions="Center"
+        VerticalOptions="Center"
+        WidthRequest="450"
+        HeightRequest="500"
+        Scale="0.8">
+                <StackLayout
+            Spacing="20"
+            HorizontalOptions="Center"
+            VerticalOptions="Center">
+                    <Label Text="Final Scores"
+                   FontSize="24"
+                   TextColor="{StaticResource coloryellow}"
+                   FontFamily="RockBoulder"
+                   HorizontalOptions="Center" VerticalOptions="Start"/>
+
+                    <ScrollView>
+                        <Label x:Name="FinalScoresLabel"
+                       Text="Scores will appear here"
+                       FontSize="18"
+                       TextColor="{StaticResource Black}"
+                       FontFamily="RockBoulder" />
+                    </ScrollView>
+
+                    <!-- Action Buttons -->
+                    <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
+                        <Button Text="Play Again"
+                        BackgroundColor="{StaticResource colorred1}"
+                        FontSize="16"
+                        FontFamily="RockBoulder"
+                        Clicked="OnPlayAgainClicked"
+                        HorizontalOptions="FillAndExpand" />
+
+                        <Button Text="Quit"
+                        BackgroundColor="{StaticResource colorblue}"
+                        FontSize="16"
+                        FontFamily="RockBoulder"
+                        Clicked="OnQuitClicked"
+                        HorizontalOptions="FillAndExpand" />
+                    </HorizontalStackLayout>
+                </StackLayout>
+            </Frame>
+        </Grid>
+
+
+    </Grid>
+</ContentPage>

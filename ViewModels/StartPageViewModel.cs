@@ -1,37 +1,32 @@
 ﻿using CrossPlatformProject2.Views;
+using CrossPlatformProject2.Services;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 
 namespace CrossPlatformProject2.ViewModels
 {
     public class StartPageViewModel : BaseViewModel
     {
-        private string _player1;
-        private string _player2;
-        private string _player3;
-        private string _player4;
+        private ObservableCollection<string> _playerNames = new ObservableCollection<string>();
+        private int _numberOfPlayers;
 
-        public string Player1
+        public ObservableCollection<string> PlayerNames
         {
-            get => _player1;
-            set => SetProperty(ref _player1, value);
+            get => _playerNames;
+            set => SetProperty(ref _playerNames, value);
         }
 
-        public string Player2
+        public int NumberOfPlayers
         {
-            get => _player2;
-            set => SetProperty(ref _player2, value);
-        }
-
-        public string Player3
-        {
-            get => _player3;
-            set => SetProperty(ref _player3, value);
-        }
-
-        public string Player4
-        {
-            get => _player4;
-            set => SetProperty(ref _player4, value);
+            get => _numberOfPlayers;
+            set
+            {
+                if (SetProperty(ref _numberOfPlayers, value))
+                {
+                    UpdatePlayerInputs(); // Update input fields dynamically
+                }
+            }
         }
 
         public ICommand NavigateToSettingsCommand { get; }
@@ -39,14 +34,30 @@ namespace CrossPlatformProject2.ViewModels
 
         public StartPageViewModel()
         {
+            // Initialize commands
             NavigateToSettingsCommand = new Command(OnNavigateToSettings);
             StartTriviaCommand = new Command(OnStartTrivia);
+
+            // Load settings if available
+            var settings = SettingsService.Instance;
+            NumberOfPlayers = settings.NumberOfPlayers; // Get player number from settings
+
+            // Initialize player input fields based on the current number of players
+            UpdatePlayerInputs();
+        }
+
+        // Update settings based on the slider from SettingsPage
+        public void UpdateSettings(int numberOfPlayers)
+        {
+            NumberOfPlayers = numberOfPlayers;
+            UpdatePlayerInputs(); // Update the number of input fields based on selected players
         }
 
         private async void OnNavigateToSettings()
         {
             try
             {
+                // Navigate to SettingsPage
                 await Application.Current.MainPage.Navigation.PushAsync(new SettingsPage());
             }
             catch (Exception ex)
@@ -57,16 +68,14 @@ namespace CrossPlatformProject2.ViewModels
 
         private async void OnStartTrivia()
         {
-            var playerNames = new List<string> { Player1, Player2, Player3, Player4 }
-                .Where(name => !string.IsNullOrWhiteSpace(name))
-                .ToList();
+            var playerNames = PlayerNames.Where(name => !string.IsNullOrWhiteSpace(name)).ToList();
 
-            if (playerNames.Count > 0 && playerNames.Count <= 4)
+            if (playerNames.Count > 0 && playerNames.Count <= NumberOfPlayers)
             {
                 try
                 {
-                    // Instantiate GamePage with player names and navigate to it
-                    var gamePage = new GamePage(playerNames);
+                    var settings = SettingsService.Instance;
+                    var gamePage = new GamePage(playerNames, settings.Difficulty, settings.NumberOfRounds);
                     await Application.Current.MainPage.Navigation.PushAsync(gamePage);
                 }
                 catch (Exception ex)
@@ -76,7 +85,20 @@ namespace CrossPlatformProject2.ViewModels
             }
             else
             {
-                await Application.Current.MainPage.DisplayAlert("Invalid Input", "Please enter valid player names (1-4).", "OK");
+                await Application.Current.MainPage.DisplayAlert("Invalid Input", $"Please enter valid player names (1-{NumberOfPlayers}).", "OK");
+            }
+        }
+
+        private void UpdatePlayerInputs()
+        {
+            while (PlayerNames.Count < NumberOfPlayers)
+            {
+                PlayerNames.Add(string.Empty);
+            }
+
+            while (PlayerNames.Count > NumberOfPlayers)
+            {
+                PlayerNames.RemoveAt(PlayerNames.Count - 1);
             }
         }
     }

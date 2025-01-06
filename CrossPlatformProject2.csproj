@@ -65,6 +65,8 @@
 	  <AndroidResource Remove="NewFolder6\**" />
 	  <AndroidResource Remove="NewFolder7\**" />
 	  <AndroidResource Remove="NewFolder8\**" />
+	  <AndroidResource Remove="NewFolder9\**" />
+	  <AndroidResource Remove="NewFolder\**" />
 	  <Compile Remove="NewFolder1\**" />
 	  <Compile Remove="NewFolder2\**" />
 	  <Compile Remove="NewFolder3\**" />
@@ -73,6 +75,8 @@
 	  <Compile Remove="NewFolder6\**" />
 	  <Compile Remove="NewFolder7\**" />
 	  <Compile Remove="NewFolder8\**" />
+	  <Compile Remove="NewFolder9\**" />
+	  <Compile Remove="NewFolder\**" />
 	  <EmbeddedResource Remove="NewFolder1\**" />
 	  <EmbeddedResource Remove="NewFolder2\**" />
 	  <EmbeddedResource Remove="NewFolder3\**" />
@@ -81,6 +85,8 @@
 	  <EmbeddedResource Remove="NewFolder6\**" />
 	  <EmbeddedResource Remove="NewFolder7\**" />
 	  <EmbeddedResource Remove="NewFolder8\**" />
+	  <EmbeddedResource Remove="NewFolder9\**" />
+	  <EmbeddedResource Remove="NewFolder\**" />
 	  <MauiCss Remove="NewFolder1\**" />
 	  <MauiCss Remove="NewFolder2\**" />
 	  <MauiCss Remove="NewFolder3\**" />
@@ -89,6 +95,8 @@
 	  <MauiCss Remove="NewFolder6\**" />
 	  <MauiCss Remove="NewFolder7\**" />
 	  <MauiCss Remove="NewFolder8\**" />
+	  <MauiCss Remove="NewFolder9\**" />
+	  <MauiCss Remove="NewFolder\**" />
 	  <MauiXaml Remove="NewFolder1\**" />
 	  <MauiXaml Remove="NewFolder2\**" />
 	  <MauiXaml Remove="NewFolder3\**" />
@@ -97,6 +105,8 @@
 	  <MauiXaml Remove="NewFolder6\**" />
 	  <MauiXaml Remove="NewFolder7\**" />
 	  <MauiXaml Remove="NewFolder8\**" />
+	  <MauiXaml Remove="NewFolder9\**" />
+	  <MauiXaml Remove="NewFolder\**" />
 	  <None Remove="NewFolder1\**" />
 	  <None Remove="NewFolder2\**" />
 	  <None Remove="NewFolder3\**" />
@@ -105,6 +115,8 @@
 	  <None Remove="NewFolder6\**" />
 	  <None Remove="NewFolder7\**" />
 	  <None Remove="NewFolder8\**" />
+	  <None Remove="NewFolder9\**" />
+	  <None Remove="NewFolder\**" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -114,6 +126,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="GamePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="GameSetup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\GamePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -127,7 +145,6 @@
 
 	<ItemGroup>
 	  <Folder Include="Models\" />
-	  <Folder Include="NewFolder\" />
 	</ItemGroup>
 
 </Project>

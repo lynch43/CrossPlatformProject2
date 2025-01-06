@@ -9,7 +9,7 @@ namespace CrossPlatformProject2.ViewModels
     public class GamePageViewModel : BaseViewModel
     {
         private static readonly string[] Indicators = { "A", "B", "C", "D" };
-        private const string ApiUrl = "https://opentdb.com/api.php?amount=20&category=15&difficulty=easy&type=multiple";
+        private string ApiUrl => $"https://opentdb.com/api.php?amount=20&category=15&difficulty={_difficulty.ToLower()}&type=multiple";
 
         private ObservableCollection<AnswerOption> _answers = new();
         private string _currentQuestion;
@@ -18,9 +18,13 @@ namespace CrossPlatformProject2.ViewModels
         private string _turnDisplay;
         private int _currentQuestionIndex;
         private int _currentPlayerIndex;
+        private int _currentRound;
+        private int _numberOfRounds = 10;
+
         private List<TriviaQuestion> _triviaQuestions = new();
         private Dictionary<string, int> _playerScores = new();
-        private List<string> _playerNames = new();
+        private ObservableCollection<string> _playerNames = new ObservableCollection<string> { "Player 1", "Player 2" };
+        private string _difficulty = "Medium";
 
         public ObservableCollection<AnswerOption> Answers
         {
@@ -69,27 +73,27 @@ namespace CrossPlatformProject2.ViewModels
         public ICommand SubmitAnswerCommand { get; }
         public ICommand SelectAnswerCommand { get; }
 
+        // Parameterless constructor for XAML
         public GamePageViewModel()
+            : this(new List<string> { "Player 1", "Player 2" }, "Medium", 10)
+        {
+        }
+
+        public GamePageViewModel(List<string> playerNames, string difficulty, int numberOfRounds)
         {
             SubmitAnswerCommand = new Command(OnSubmitAnswer);
             SelectAnswerCommand = new Command<string>(OnSelectAnswer);
 
-            _playerNames = new List<string> { "Player 1", "Player 2" };
+            _playerNames = new ObservableCollection<string>(playerNames);
+            _difficulty = difficulty;
+            _numberOfRounds = numberOfRounds;
+
             foreach (var name in _playerNames)
             {
                 _playerScores[name] = 0;
             }
-            FetchTriviaQuestions();
-        }
 
-        public GamePageViewModel(List<string> playerNames) : this()
-        {
-            _playerNames = playerNames;
-            _playerScores.Clear();
-            foreach (var name in playerNames)
-            {
-                _playerScores[name] = 0;
-            }
+            FetchTriviaQuestions();
         }
 
         private async void FetchTriviaQuestions()
@@ -98,7 +102,6 @@ namespace CrossPlatformProject2.ViewModels
             {
                 using var client = new HttpClient();
                 var response = await client.GetStringAsync(ApiUrl);
-                Console.WriteLine("API Response: " + response);
 
                 var triviaData = JsonSerializer.Deserialize<TriviaResponse>(response, new JsonSerializerOptions
                 {
@@ -108,35 +111,31 @@ namespace CrossPlatformProject2.ViewModels
                 if (triviaData?.Results != null && triviaData.Results.Count > 0)
                 {
                     _triviaQuestions = triviaData.Results;
-                    Console.WriteLine($"Loaded {_triviaQuestions.Count} questions.");
                     DisplayQuestion();
                 }
                 else
                 {
                     CurrentQuestion = "No questions available.";
-                    Console.WriteLine("Trivia data was null or empty.");
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 CurrentQuestion = "Error loading questions.";
-                Console.WriteLine("Error in FetchTriviaQuestions: " + ex.Message);
             }
         }
 
         private void DisplayQuestion()
         {
-            if (_currentQuestionIndex < _triviaQuestions.Count)
+            if (_currentRound < _numberOfRounds && _currentQuestionIndex < _triviaQuestions.Count)
             {
                 var currentQuestion = _triviaQuestions[_currentQuestionIndex];
-                Console.WriteLine($"Displaying Question: {currentQuestion.Question}");
 
                 CurrentQuestion = WebUtility.HtmlDecode(currentQuestion.Question);
 
                 var allAnswers = new List<string>(currentQuestion.IncorrectAnswers)
-        {
-            currentQuestion.CorrectAnswer
-        };
+                {
+                    currentQuestion.CorrectAnswer
+                };
                 allAnswers = allAnswers.OrderBy(_ => Guid.NewGuid()).ToList();
 
                 Answers.Clear();
@@ -150,15 +149,22 @@ namespace CrossPlatformProject2.ViewModels
                     });
                 }
 
-                Console.WriteLine($"Loaded {Answers.Count} answers.");
                 SelectedAnswer = null;
                 UpdateScoreDisplay();
             }
             else
             {
-                CurrentQuestion = "Quiz Complete!";
-                TurnDisplay = "Quiz finished";
+                CurrentQuestion = "Game Complete!";
+                AnnounceWinner();
             }
+        }
+
+        private async void AnnounceWinner()
+        {
+            var winner = _playerScores.OrderByDescending(ps => ps.Value).First();
+            await Application.Current.MainPage.DisplayAlert("Game Over",
+                $"{winner.Key} wins with {winner.Value} correct answers!",
+                "OK");
         }
 
         private void OnSelectAnswer(string selectedIndicator)
@@ -185,30 +191,39 @@ namespace CrossPlatformProject2.ViewModels
             _currentQuestionIndex++;
             _currentPlayerIndex = (_currentPlayerIndex + 1) % _playerNames.Count;
 
-            if (_currentQuestionIndex < _triviaQuestions.Count)
+            if (_currentPlayerIndex == 0)
             {
-                DisplayQuestion();
+                _currentRound++;
             }
-            else
-            {
-                UpdateScoreDisplay();
-            }
+
+            DisplayQuestion();
         }
 
         private void UpdateScoreDisplay()
         {
             ScoreDisplay = string.Join(", ", _playerScores.Select(ps => $"{ps.Key}: {ps.Value}"));
-            TurnDisplay = _currentQuestionIndex < _triviaQuestions.Count
-                ? $"{_playerNames[_currentPlayerIndex]}'s turn"
-                : "Quiz finished";
+            TurnDisplay = _currentRound < _numberOfRounds
+                ? $"{_playerNames[_currentPlayerIndex]}'s turn (Round {_currentRound + 1}/{_numberOfRounds})"
+                : "Game finished";
+        }
+
+        public bool ValidatePlayerNames()
+        {
+            foreach (var name in _playerNames)
+            {
+                if (string.IsNullOrWhiteSpace(name) || name.Length < 2)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 
     public class AnswerOption : BaseViewModel
     {
-        public string Index { get; set; } // A, B, C, D
-        public string Text { get; set; } // The answer text
-
+        public string Index { get; set; }
+        public string Text { get; set; }
         private bool _isSelected;
 
         public bool IsSelected
