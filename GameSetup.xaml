@@ -21,10 +21,6 @@
 
             </Grid.ColumnDefinitions>
 
-
-
-
-
             <!-- Title -->
             <Label Text="GAME SETUP"  Grid.Row="0" Grid.ColumnSpan="3" Margin="0,0,0,40"
                    FontSize="55" 
