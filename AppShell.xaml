@@ -4,11 +4,12 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:CrossPlatformProject2"
-    xmlns:views="clr-namespace:CrossPlatformProject2.Views"
     Shell.FlyoutBehavior="Disabled"
     Title="CrossPlatformProject2">
 
-    <ShellContent Title="Settings" ContentTemplate="{DataTemplate views:SettingsPage}" />
-    <ShellContent Title="Game" ContentTemplate="{DataTemplate views:GamePage}" />
+    <ShellContent
+        Title="Home"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" />
 
 </Shell>
