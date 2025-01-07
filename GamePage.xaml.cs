@@ -4,8 +4,6 @@ using System.Net;
 using CrossPlatformProject2.ViewModels;
 using Microsoft.Maui.Controls;
 using System.Threading.Tasks;
-using Android.App;
-using static Android.Provider.DocumentsContract;
 
 namespace CrossPlatformProject2
 {
@@ -428,7 +426,6 @@ namespace CrossPlatformProject2
             else
                 await endGame();
         }
-
 
         private async Task CorrectAnswerAnimation(Button clickedButton)
         {

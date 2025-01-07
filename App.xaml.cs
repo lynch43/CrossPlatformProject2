@@ -8,7 +8,7 @@
             InitializeComponent();
 
 
-            MainPage = new NavigationPage(new MainPage()); //wrap MainPage in NavigationPage
+            MainPage = new NavigationPage(new MainPage()); // wrap MainPage in NavigationPage
         }
     }
 }

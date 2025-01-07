@@ -13,10 +13,13 @@ namespace CrossPlatformProject2
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                    fonts.AddFont("Orbitron-Regular.ttf", "Orbitron");
+                    //fonts.AddFont("Orbitron-Bold.ttf", "OrbitronBold");//registered the two fonts
+                    fonts.AddFont("RockBoulder.ttf", "OrbitronBold");//registered the two fonts
                 });
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();
