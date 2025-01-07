@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CrossPlatformProject2.MainPage"
+             BackgroundColor="{StaticResource colorwhite}"
+             NavigationPage.HasNavigationBar="False">
+
+    <!--creating my starry background implementing a grid-->
+    <Grid VerticalOptions="Center" HorizontalOptions="Center">
+
+
+
+        <VerticalStackLayout Spacing="20" >
+            <!--Create Game Name Label -->
+            <Label Text="Snap Trivia" FontSize="36" TextColor="{StaticResource Black}" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" FontFamily="RockBoulder"></Label>
+            <!-- <Image x:Name="galaxyImage" Source="galaxy.png" Aspect="AspectFit" HeightRequest="200" VerticalOptions="Center" HorizontalOptions="Center" Loaded="OnGalaxyImageLoaded"></Image> -->
+
+
+            <!--Buttons for separate pages -->
+            <Grid Margin="10,10,10,0" ColumnSpacing="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <!--<ColumnDefinition Width="*" />-->
+                </Grid.ColumnDefinitions>
+
+                <Button Text="Leaderboard"  BackgroundColor="{StaticResource colorblue}" TextColor="White" FontSize="16"  Grid.Column="0"  HorizontalOptions="Fill" Clicked="Leaderboard_Clicked" FontFamily="RockBoulder" LineBreakMode="WordWrap"></Button>
+                <Button Text="Achievements" BackgroundColor="{StaticResource coloryellow}" TextColor="White" FontSize="16" Grid.Column="1" HorizontalOptions="FillAndExpand" FontFamily="RockBoulder" Clicked="Achievments_Clicked" LineBreakMode="WordWrap"></Button>
+                
+            </Grid>
+            <!--Start Game Button-->
+            <Button   Text="Start Your Journey" BackgroundColor="{StaticResource colorred1}" HeightRequest="30" TextColor="White" FontSize="25" FontFamily="RockBoulder" ImageSource="arrow.png" Clicked="Button_Clicked"></Button>
+
+
+
+
+        </VerticalStackLayout>
+
+
+
+    </Grid>
+
+</ContentPage>
